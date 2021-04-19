@@ -15,13 +15,19 @@
                     class="text-center display-1 light-blue--text text--lighten-2"
                   >THE ASSOCIATION OF BANGKOK COMMERCIAL ALUMNI
                   </div>
-                  <v-form>
+                  <v-form
+                    ref="formSignin"
+                    v-model="validSignin"
+                    lazy-validation
+                  >
                     <v-text-field
                       label="Username"
-                      name="Username"
+                      name="username"
                       prepend-icon="mdi-account"
                       type="text"
                       color="light-blue lighten-2"
+                      :rules="usernameRules"
+                      v-model="username"
                     />
 
                     <v-text-field
@@ -31,12 +37,14 @@
                       prepend-icon="mdi-lock"
                       type="password"
                       color="light-blue lighten-2"
+                      :rules="passwordRules"
+                      v-model="password"
                     />
                   </v-form>
                   <h3 class="text-center mt-4">คุณลืมรหัสผ่านหรือไม่ ?</h3>
                 </v-card-text>
                 <div class="text-center mb-3">
-                  <v-btn rounded color="light-blue lighten-2" dark>เข้าสู่ระบบ</v-btn>
+                  <v-btn rounded color="light-blue lighten-2" dark @click="Signin()">เข้าสู่ระบบ</v-btn>
                   or
                   <nuxt-link to="/">หน้าหลัก</nuxt-link>
                 </div>
@@ -71,21 +79,30 @@
               <v-col cols="12" md="8">
                 <v-card-text class="mt-8">
                   <h1 class="text-center display-2 light-blue--text text--lighten-2">สร้างบัญชี</h1>
-                  <v-form>
+                  <v-form
+                    ref="formSignup"
+                    v-model="validSignup"
+                    lazy-validation
+                  >
                     <v-text-field
                       label="ชื่อ-นามสกุล"
                       name="name"
-                      prepend-icon="mdi-account"
+                      prepend-icon="mdi-account-box"
                       type="text"
                       color="light-blue lighten-2"
+                      v-model="name"
+                      :rules="nameRules"
                     />
 
                     <v-text-field
                       label="รหัสบัตรประจำตัวประชาชน"
-                      name="card_number"
+                      name="citizenid"
                       prepend-icon="mdi-passport"
                       type="text"
                       color="light-blue lighten-2"
+                      v-model="cardNumber"
+                      :rules="cardNumberRules"
+                      v-mask="'#####-#######-#'"
                     />
 
                     <v-text-field
@@ -94,6 +111,9 @@
                       prepend-icon="mdi-phone"
                       type="text"
                       color="light-blue lighten-2"
+                      v-model="tel"
+                      :rules="telRules"
+                      v-mask="'###-###-####'"
                     />
 
                     <v-text-field
@@ -102,7 +122,20 @@
                       prepend-icon="mdi-email"
                       type="email"
                       color="light-blue lighten-2"
+                      v-model="email"
+                      :rules="emailRules"
                     />
+
+                    <v-text-field
+                      label="Username"
+                      name="username"
+                      prepend-icon="mdi-account"
+                      type="text"
+                      color="light-blue lighten-2"
+                      :rules="usernameRules"
+                      v-model="username"
+                    />
+
                     <v-text-field
                       id="password"
                       label="Password"
@@ -110,11 +143,13 @@
                       prepend-icon="mdi-lock"
                       type="password"
                       color="light-blue lighten-2"
+                      :rules="passwordRules"
+                      v-model="password"
                     />
                   </v-form>
                 </v-card-text>
                 <div class="text-center mb-3">
-                  <v-btn rounded color="light-blue lighten-2" dark>สร้างบัญชี</v-btn>
+                  <v-btn rounded color="light-blue lighten-2" dark @click="Signup()">สร้างบัญชี</v-btn>
                 </div>
               </v-col>
             </v-row>
@@ -126,11 +161,24 @@
 </template>
 
 <script>
+import formMixin from '~/mixins/formMixin'
+
 export default {
   layout: 'layoutLogin',
   data() {
-    return {
-      step: 1
+    return {}
+  },
+  mixins: [formMixin],
+  methods: {
+    Signin() {
+      if (this.$refs.formSignin.validate()) {
+        console.log('formSignin');
+      }
+    },
+    Signup() {
+      if (this.$refs.formSignup.validate()) {
+        console.log('formSignup');
+      }
     }
   }
 }

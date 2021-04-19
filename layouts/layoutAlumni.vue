@@ -11,12 +11,7 @@
 </template>
 
 <script>
-import AlumniBar from '~/components/layoutAlumni/alumniBar'
-import AlumniFooter from '~/components/layoutAlumni/alumniFooter'
-
 export default {
-  name: 'layoutAlumni',
-  components: { AlumniFooter, AlumniBar },
   data() {
     return {}
   }

@@ -9,9 +9,7 @@
 </template>
 
 <script>
-export default {
-  name: 'layoutLogin'
-}
+export default {}
 </script>
 
 <style scoped>
